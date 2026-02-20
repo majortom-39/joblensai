@@ -59,9 +59,8 @@ function parseRelevanceSummary(text: string): { working: string | null; notWorki
   return { working, notWorking };
 }
 
-const JOB_CARD_FIXED_HEIGHT = 580;
 const OVERALL_DEFAULT_HEIGHT = 90;
-const RESUME_DEFAULT_HEIGHT = 280;
+const RESUME_DEFAULT_HEIGHT = 240;
 const PROJECTS_HEADER_HEIGHT = 48;
 
 export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
@@ -83,7 +82,6 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
   const relevanceText = job.relevanceSummary ?? job.description ?? "";
   const relevanceParsed = parseRelevanceSummary(relevanceText);
   const hasProjects = job.suggestedProjects && job.suggestedProjects.length > 0;
-  const anyExpanded = overallExpanded || suggestionsExpanded || projectsExpanded;
 
   useEffect(() => {
     const check = (ref: React.RefObject<HTMLDivElement | null>, set: (v: boolean) => void) => {
@@ -99,14 +97,8 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-      <Card
-        className="overflow-hidden hover:shadow-md transition-shadow flex flex-col transition-[height] duration-200"
-        style={{
-          minHeight: JOB_CARD_FIXED_HEIGHT,
-          height: anyExpanded ? "auto" : JOB_CARD_FIXED_HEIGHT,
-        }}
-      >
-        <CardContent className="p-5 flex flex-col flex-1 min-h-0">
+      <Card className="overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <CardContent className="p-5 flex flex-col flex-1">
           {/* Top row — fixed */}
           <div className="flex items-start justify-between gap-3 shrink-0">
             <div className="flex-1 min-w-0">
@@ -157,10 +149,10 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
             </div>
           </div>
 
-          {/* Overall — smaller fixed height by default; open; chevron when content overflows */}
-          <div className="shrink-0 mt-3">
+          {/* Overall summary */}
+          <div className="mt-3">
             <div
-              className="p-3 rounded-lg bg-primary/5 border border-primary/10 overflow-hidden flex flex-col transition-[max-height] duration-200"
+              className="p-3 rounded-lg bg-primary/5 border border-primary/10 overflow-hidden flex flex-col"
               style={{ maxHeight: overallExpanded ? "none" : OVERALL_DEFAULT_HEIGHT }}
             >
               <div className="flex items-center gap-1.5 text-xs font-semibold text-primary shrink-0">
@@ -179,8 +171,7 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
               </div>
               <div
                 ref={overallContentRef}
-                className="overflow-hidden text-sm text-muted-foreground mt-1.5 min-h-0 space-y-2"
-                style={overallExpanded ? undefined : { maxHeight: OVERALL_DEFAULT_HEIGHT - 42 }}
+                className="overflow-hidden text-sm text-muted-foreground mt-1.5 space-y-2"
               >
                 {relevanceParsed.working !== null || relevanceParsed.notWorking !== null ? (
                   <>
@@ -204,10 +195,10 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
             </div>
           </div>
 
-          {/* Resume Enhancement Suggestions — largest default height; secondary color; always reserve space so all cards match */}
-          <div className="shrink-0 mt-3">
+          {/* Resume Enhancement Suggestions */}
+          <div className="mt-3">
             <div
-              className="p-3 rounded-lg bg-secondary/5 border border-secondary/10 overflow-hidden flex flex-col transition-[max-height] duration-200"
+              className="p-3 rounded-lg bg-secondary/5 border border-secondary/10 overflow-hidden flex flex-col"
               style={{ maxHeight: suggestionsExpanded ? "none" : RESUME_DEFAULT_HEIGHT }}
             >
               <div className="flex items-center gap-1.5 text-xs font-semibold text-secondary-foreground shrink-0">
@@ -227,8 +218,7 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
               {(hasSectioned || hasFlat) ? (
                 <div
                   ref={suggestionsContentRef}
-                  className="overflow-hidden mt-1.5 space-y-2 min-h-0"
-                  style={suggestionsExpanded ? undefined : { maxHeight: RESUME_DEFAULT_HEIGHT - 42 }}
+                  className="overflow-hidden mt-1.5 space-y-2"
                 >
                   {hasSectioned && (
                     <ul className="space-y-2">
@@ -256,13 +246,10 @@ export function JobCard({ job, onSave, onApply, onViewProject }: Props) {
             </div>
           </div>
 
-          {/* Spacer: pushes Projects to the bottom in default state so no gap at bottom */}
-          {!anyExpanded && <div className="flex-1 min-h-0 min-w-0" />}
-
-          {/* Projects — collapsed by default; at the end of card; accent color; always reserve space so all cards match */}
-          <div className="shrink-0 mt-3">
+          {/* Projects — collapsed by default; accent color */}
+          <div className="mt-3">
             <div
-              className="p-3 rounded-lg bg-accent/5 border border-accent/15 overflow-hidden flex flex-col transition-[max-height] duration-200"
+              className="p-3 rounded-lg bg-accent/5 border border-accent/15 overflow-hidden flex flex-col"
               style={{ maxHeight: projectsExpanded && hasProjects ? "none" : PROJECTS_HEADER_HEIGHT }}
             >
               <button

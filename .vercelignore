@@ -19,8 +19,7 @@ main.py
 test_*.py
 tests/
 
-# Personal data files at repo root (NOT career-catalyst-dashboard/src/data/)
-/data/
+# Personal data at root (not src/data which is source code)
 /*.pdf
 
 # Node
@@ -38,6 +37,3 @@ dist/
 *.sw?
 .DS_Store
 Thumbs.db
-
-# Debug artifacts
-data/*.html
