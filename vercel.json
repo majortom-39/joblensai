@@ -1,0 +1,26 @@
+{
+  "builds": [
+    {
+      "src": "api.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/analyze",
+      "dest": "api.py"
+    },
+    {
+      "src": "/status/(.*)",
+      "dest": "api.py"
+    },
+    {
+      "src": "/results/(.*)",
+      "dest": "api.py"
+    },
+    {
+      "src": "/health",
+      "dest": "api.py"
+    }
+  ]
+}
