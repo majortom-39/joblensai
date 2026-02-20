@@ -40,4 +40,4 @@ dist/
 Thumbs.db
 
 # Debug artifacts
-*.html
+data/*.html
