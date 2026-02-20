@@ -1,0 +1,23 @@
+# Web Scraping Dependencies
+beautifulsoup4>=4.13.4
+
+# Google Gemini SDK
+google-genai>=1.0.0
+
+# LangChain Dependencies
+langchain>=1.2.10
+langgraph>=1.0.8
+langchain-google-genai>=2.0.0
+
+# API Server
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# File Text Extraction
+pdfminer.six>=20221105
+python-docx>=1.1.0
+
+# Additional dependencies
+requests>=2.31.0
+python-dotenv>=1.0.0

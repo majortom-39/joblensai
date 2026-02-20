@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Environment / secrets
+.env
+
+# V1/V2 legacy files
+agents/career_optimizer.py
+agents/job_hunter.py
+agents/v2_workflow.py
+main.py
+
+# Dev test files
+test_*.py
+tests/
+
+# Data / personal files
+data/
+*.pdf
+
+# Node
+node_modules/
+dist/
+
+# IDE / editor
+.vscode/
+.idea/
+.cursor/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Debug artifacts
+*.html
