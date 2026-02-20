@@ -19,8 +19,8 @@ main.py
 test_*.py
 tests/
 
-# Data / personal files
-data/
+# Data / personal files (root only)
+/data/
 *.pdf
 
 # Node
