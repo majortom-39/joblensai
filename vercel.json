@@ -1,23 +1,17 @@
 {
-  "builds": [
-    {
-      "src": "career-catalyst-dashboard/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    },
-    {
-      "src": "api.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "installCommand": "cd career-catalyst-dashboard && npm install",
+  "buildCommand": "cd career-catalyst-dashboard && npm run build",
+  "outputDirectory": "career-catalyst-dashboard/dist",
   "routes": [
     { "src": "/api/analyze", "dest": "api.py" },
     { "src": "/api/status/(.*)", "dest": "api.py" },
     { "src": "/api/results/(.*)", "dest": "api.py" },
     { "src": "/api/health", "dest": "api.py" },
-    { "src": "/(.*\\..+)$", "dest": "career-catalyst-dashboard/$1" },
-    { "src": "/(.*)", "dest": "career-catalyst-dashboard/index.html" }
-  ]
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
+  "functions": {
+    "api.py": {
+      "runtime": "@vercel/python"
+    }
+  }
 }
