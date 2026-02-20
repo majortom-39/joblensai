@@ -1,26 +1,23 @@
 {
   "builds": [
     {
+      "src": "career-catalyst-dashboard/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
       "src": "api.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
-    {
-      "src": "/analyze",
-      "dest": "api.py"
-    },
-    {
-      "src": "/status/(.*)",
-      "dest": "api.py"
-    },
-    {
-      "src": "/results/(.*)",
-      "dest": "api.py"
-    },
-    {
-      "src": "/health",
-      "dest": "api.py"
-    }
+    { "src": "/api/analyze", "dest": "api.py" },
+    { "src": "/api/status/(.*)", "dest": "api.py" },
+    { "src": "/api/results/(.*)", "dest": "api.py" },
+    { "src": "/api/health", "dest": "api.py" },
+    { "src": "/(.*\\..+)$", "dest": "career-catalyst-dashboard/$1" },
+    { "src": "/(.*)", "dest": "career-catalyst-dashboard/index.html" }
   ]
 }
